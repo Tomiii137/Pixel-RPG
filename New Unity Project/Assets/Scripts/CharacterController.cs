@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class CharacterController : MonoBehaviour
 {
-    Rigidbody2D rb;
+    [SerializeField] Rigidbody2D rb;
+    [SerializeField] float speed = 3.14f;
+    
+ 
+    float horizontalInput;
+    float verticalInput;
     // Start is called before the first frame update
     void Start()
     {
@@ -12,8 +17,17 @@ public class CharacterController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        
+        horizontalInput = Input.GetAxis("Horizontal");
+        verticalInput = Input.GetAxis("Vertical");
+
+        Vector2 movement = new Vector2(horizontalInput, verticalInput) * speed;
+        rb.AddRelativeForce(movement);
+    }
+
+    void Update() 
+    {
+        Debug.Log("h " + horizontalInput + "     v " + verticalInput);
     }
 }
